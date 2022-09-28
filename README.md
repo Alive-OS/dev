@@ -1,2 +1,3 @@
-# aliveos_ros_dev
+# Alive OS: dev
+
 Package for AliveOS development
