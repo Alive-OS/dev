@@ -1,4 +1,4 @@
-FROM osrf/ros:foxy-desktop
+FROM --platform=$BUILDPLATFORM osrf/ros:foxy-desktop
 
 # ----------------------------------------------------------------------------
 # Software
@@ -20,25 +20,38 @@ RUN : \
   && apt-get update \
   && apt-get install -y \
         mc \
-        powershell
+        powershell \
+        openssh-server
+        
+# ----------------------------------------------------------------------------
+# Configuration        
+# ----------------------------------------------------------------------------
+# Users
+RUN echo 'root:aliveos' | chpasswd
+RUN adduser --disabled-password --gecos "" aliveos
+RUN adduser aliveos sudo
+RUN echo 'aliveos:aliveos' | chpasswd
+
+# SSH
+RUN mkdir /var/run/sshd
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+EXPOSE 22
 
 # ----------------------------------------------------------------------------
 # Environment
 # ----------------------------------------------------------------------------
 
-# Workdir
-RUN mkdir /opt/aliveos
-WORKDIR /opt/aliveos
+COPY aliveos_entrypoint.sh /aliveos_entrypoint.sh
+RUN chmod +x /aliveos_entrypoint.sh
+RUN echo "source /opt/ros/foxy/setup.bash --" >> /home/aliveos/.bashrc
+RUN echo "export DISPLAY=host.docker.internal:0.0" >> /home/aliveos/.bashrc
+RUN echo "export LIBGL_ALWAYS_INDIRECT=0" >> /home/aliveos/.bashrc
 
-#Dev repo
-ADD . /opt/aliveos/dev
-
-# To run GUI on a local machine
-ENV DISPLAY=host.docker.internal:0.0  
-ENV LIBGL_ALWAYS_INDIRECT=0
+WORKDIR /home/aliveos
 
 # ----------------------------------------------------------------------------
 # Start
 # ----------------------------------------------------------------------------
-ENTRYPOINT [ "/ros_entrypoint.sh" ]
+ENTRYPOINT ["/aliveos_entrypoint.sh"]
 CMD [ "/bin/bash" ]
