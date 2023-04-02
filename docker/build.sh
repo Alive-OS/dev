@@ -15,5 +15,5 @@ SCRIPT_ROOT=$(dirname $(readlink -f "$0"))
 SCRIPT_NAME=$(basename "$0")
 function log { echo "- $1 [$(basename "$0")]" ;}
 # -------------------------------------------------------------------------
-
-docker build $SCRIPT_ROOT -t aliveos:dev
+echo $SCRIPT_ROOT
+docker build $SCRIPT_ROOT/docker -t aliveos:dev

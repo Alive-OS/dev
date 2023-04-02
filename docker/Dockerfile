@@ -20,8 +20,20 @@ RUN : \
   && apt-get update \
   && apt-get install -y \
         mc \
+<<<<<<< Updated upstream
         # powershell \
         openssh-server
+=======
+        openssh-server \
+        tmux \
+        python3-opencv \
+        libopencv-dev \
+        ros-foxy-image-transport \
+        libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+        gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools \
+        gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio \
+        libgstreamer-plugins-base1.0-dev
+>>>>>>> Stashed changes
         
 # ----------------------------------------------------------------------------
 # Configuration        
