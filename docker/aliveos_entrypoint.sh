@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# For external XServers
+# For external X Servers
 export DISPLAY=host.docker.internal:0.0
 export LIBGL_ALWAYS_INDIRECT=0
 
