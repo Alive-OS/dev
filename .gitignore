@@ -1,4 +1,6 @@
+#Dev files
+.vscode
+
 # ROS2 build / cache
 hello_world/ros2_ws/build
 hello_world/ros2_ws/install
-hello_world/ros2_ws/log
