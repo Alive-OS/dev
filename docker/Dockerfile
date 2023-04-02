@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM osrf/ros:foxy-desktop
+FROM --platform=$BUILDPLATFORM ros:foxy-ros-base-focal
 
 # ----------------------------------------------------------------------------
 # Software
