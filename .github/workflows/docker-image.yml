@@ -19,7 +19,7 @@ jobs:
         uses: docker/setup-qemu-action@v2
         with:
           image: tonistiigi/binfmt:latest
-          platforms: linux/amd64,linux/arm64,linux/arm/v7,arm64,arm
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
           
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2    
@@ -31,11 +31,20 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
           
-      - name: Build and push
+      - name: Build and push amd64
         uses: docker/build-push-action@v3
         with:
           context: "{{defaultContext}}:docker"
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
+          tags: agramakov/aliveos:dev
+          file: Dockerfile
+          
+      - name: Build and push arm64
+        uses: docker/build-push-action@v3
+        with:
+          context: "{{defaultContext}}:docker"
+          push: true
+          platforms: linux/arm64
           tags: agramakov/aliveos:dev
           file: Dockerfile
