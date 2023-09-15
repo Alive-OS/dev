@@ -3,7 +3,7 @@
 #
 # Copyright (c) 2022 Andrei Gramakov. All rights reserved.
 #
-# This file is licensed under the terms of the MIT license.  
+# This file is licensed under the terms of the MIT license.
 # For a copy, see: https://opensource.org/licenses/MIT
 #
 # site:    https://agramakov.me
@@ -17,4 +17,4 @@ function log { echo "- $1 [$(basename "$0")]" ;}
 # -------------------------------------------------------------------------
 
 source $SCRIPT_ROOT/docker/build.sh
-docker run -it aliveos:dev
+docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix aliveos:dev
